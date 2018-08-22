@@ -40,3 +40,6 @@ We'll explore some Cilium Network Policies and tools to help you better understa
 Confirm that you're up and running:
 
          kubectl get pods --all-namespaces
+         
+         
+Now you're ready to begin the workshop! Proceed to cheatsheet.md.
