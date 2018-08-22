@@ -24,17 +24,19 @@ We'll explore some Cilium Network Policies and tools to help you better understa
 
 1. First, deploy minikube with the CNI option enabled:
 
-      minikube start --network-plugin=cni --extra-config=kubelet.network-plugin=cni --memory=5120
+         minikube start --network-plugin=cni --extra-config=kubelet.network-plugin=cni --memory=5120
 
 2. Cilium requires a KV-store. For the purpose of this demo, launch etcd as its dependency:
 
-      kubectl create -n kube-system -f https://raw.githubusercontent.com/cilium/cilium/v1.2/examples/kubernetes/addons/etcd/standalone-etcd.yaml
+
+         kubectl create -n kube-system -f https://raw.githubusercontent.com/cilium/cilium/v1.2/examples/kubernetes/addons/etcd/standalone-etcd.yaml
 
 3. Finally deploy the Cilium DaemonSet on minikube:
 
-      kubectl create -f https://raw.githubusercontent.com/cilium/cilium/v1.2/examples/kubernetes/1.10/cilium.yaml
+      
+         kubectl create -f https://raw.githubusercontent.com/cilium/cilium/v1.2/examples/kubernetes/1.10/cilium.yaml
 
 
 Confirm that you're up and running:
 
-      kubectl get pods --all-namespaces
+         kubectl get pods --all-namespaces
