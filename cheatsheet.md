@@ -53,7 +53,7 @@
 # Step 7: the hope of the rebels lies within the cilium egress policy
     kubectl create -f https://raw.githubusercontent.com/techcet/cilium-workshop/master/rebel-escape.yaml
     kubectl get cnp
-    kubectl get cnp rebels-escape -o yaml
+    kubectl get cnp rebel-escape -o yaml
     kubectl get cnp deny-all-egress -o yaml
 
 ## ensure the rebels escape but the Empire's tiefighters cannot follow them outside of the cluster
