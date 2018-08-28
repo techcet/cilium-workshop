@@ -24,7 +24,8 @@ We'll explore some Cilium Network Policies and tools to help you better understa
 
 1. First, deploy minikube with the CNI option enabled:
 
-         minikube start --network-plugin=cni --extra-config=kubelet.network-plugin=cni --memory=5120
+      minikube start --network-plugin=cni --memory=5120 --bootstrapper=localkube --kubernetes-version=v1.10.0
+
 
 2. Cilium requires a KV-store. For the purpose of this demo, launch etcd as its dependency:
 
@@ -36,10 +37,14 @@ We'll explore some Cilium Network Policies and tools to help you better understa
       
          kubectl create -f https://raw.githubusercontent.com/cilium/cilium/v1.2/examples/kubernetes/1.10/cilium.yaml
 
+4. Restart your kube-dns pod so it can be managed by Cilium.
+
+      kubectl delete pod kube-dns-XXXX -n kube-system
 
 Confirm that you're up and running:
 
-         kubectl get pods --all-namespaces
-         
-         
-Now you're ready to begin the workshop! Proceed to cheatsheet.md.
+
+      kubectl get pods --all-namespaces
+
+
+Now you're ready to proceed to the [Cilium Intro Workshop](https://github.com/techcet/cilium-workshop/blob/master/cheatsheet.md).

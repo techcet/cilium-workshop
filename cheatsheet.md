@@ -2,8 +2,9 @@
 
 
 # Step1: deploy app
-    kubectl create -f http-sw-app.yaml
 
+
+kubectl create -f https://raw.githubusercontent.com/techcet/cilium-workshop/master/http-sw-app.yaml
 
 # Step 2: test app traffic
 
@@ -15,45 +16,46 @@
 ## open a new terminal to have a coinciding session into the cilium pod:
     kubectl exec -ti -n cilium-xxx bash
 
-## in your cilium window, execute:
-    cilium endpoint list
-    cilium service list
+## in your cilium terminal window, execute:
+cilium endpoint list
+cilium service list
 
 
 # Step 4: enforce an L3/L4 policy
-    kubectl create -f l3_l4_policy.yaml
-    kubectl get cnp deathstar-cnp -o yaml
+kubectl create -f https://raw.githubusercontent.com/techcet/cilium-workshop/master/l3_l4_policy.yaml
+kubectl get cnp deathstar-cnp -o yaml
 
-## in your cilium window, execute:
-    cilium endpoint list
-    cilium monitor -t drop
+## in your cilium terminal window, execute:
+cilium endpoint list
+cilium monitor -t drop
 
 ## test the policies in your original terminal window:
     kubectl exec tiefighter -ti -- curl -s -XPOST deathstar.default.svc.cluster.local/v1/request-landing
     kubectl exec xwing -ti -- curl -s -XPOST deathstar.default.svc.cluster.local/v1/request-landing
 
-## observe cilium monitor output.
+## observe the cilium monitor output.
 
 # Step 5: observe more vulnerabilities
     kubectl exec tiefighter -- curl -s -XPUT deathstar.default.svc.cluster.local/v1/exhaust-port
 
 
 # Step 6: enforce an L7 policy
-    kubectl apply -f l3_l4_l7_policy.yaml
-    kubectl get cnp deathstar-cnp -o yaml
+kubectl apply -f https://raw.githubusercontent.com/techcet/cilium-workshop/master/l3_l4_l7_policy.yaml
+kubectl get cnp deathstar-cnp -o yaml
 
-    kubectl exec tiefighter -- curl -s -XPUT deathstar.default.svc.cluster.local/v1/exhaust-port
-    kubectl exec tiefighter -ti -- curl -s -XPOST deathstar.default.svc.cluster.local/v1/request-landing
-    kubectl exec xwing -ti -- curl -s -XPOST deathstar.default.svc.cluster.local/v1/request-landing
 
-## note: cilium monitor is still running and you can observe the policy being enforced accordingly.
+## in your cilium terminal window, execute the following to observe l7 policy denies:
+cilium monitor -t l7
+
+kubectl exec tiefighter -- curl -s -XPUT deathstar.default.svc.cluster.local/v1/exhaust-port
+kubectl exec tiefighter -ti -- curl -s -XPOST deathstar.default.svc.cluster.local/v1/request-landing
 
 
 # Step 7: the hope of the rebels lies within the cilium egress policy
-    kubectl create -f rebels-escape.yaml
-    kubectl get cnp
-    kubectl get cnp rebels-escape -o yaml
-    kubectl get cnp deny-all-egress -o yaml
+kubectl create -f https://raw.githubusercontent.com/techcet/cilium-workshop/master/rebel-escape.yaml
+kubectl get cnp
+kubectl get cnp rebels-escape -o yaml
+kubectl get cnp deny-all-egress -o yaml
 
 ## ensure the rebels escape but the Empire's tiefighters cannot follow them outside of the cluster
     kubectl exec -ti xwing  -- curl starwars.covalent.link/naboo/landing-request
