@@ -3,8 +3,7 @@
 
 # Step1: deploy app
 
-
-kubectl create -f https://raw.githubusercontent.com/techcet/cilium-workshop/master/http-sw-app.yaml
+    kubectl create -f https://raw.githubusercontent.com/techcet/cilium-workshop/master/http-sw-app.yaml
 
 # Step 2: test app traffic
 
@@ -17,17 +16,17 @@ kubectl create -f https://raw.githubusercontent.com/techcet/cilium-workshop/mast
     kubectl exec -ti -n cilium-xxx bash
 
 ## in your cilium terminal window, execute:
-cilium endpoint list
-cilium service list
+    cilium endpoint list
+    cilium service list
 
 
 # Step 4: enforce an L3/L4 policy
-kubectl create -f https://raw.githubusercontent.com/techcet/cilium-workshop/master/l3_l4_policy.yaml
-kubectl get cnp deathstar-cnp -o yaml
+    kubectl create -f https://raw.githubusercontent.com/techcet/cilium-workshop/master/l3_l4_policy.yaml
+    kubectl get cnp deathstar-cnp -o yaml
 
 ## in your cilium terminal window, execute:
-cilium endpoint list
-cilium monitor -t drop
+    cilium endpoint list
+    cilium monitor -t drop
 
 ## test the policies in your original terminal window:
     kubectl exec tiefighter -ti -- curl -s -XPOST deathstar.default.svc.cluster.local/v1/request-landing
