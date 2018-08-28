@@ -13,7 +13,7 @@
 
 # Step 3: check out cilium
 ## open a new terminal to have a coinciding session into the cilium pod:
-    kubectl exec -ti -n cilium-xxx bash
+    kubectl exec -ti -n kube-system cilium-xxx bash
 
 ## in your cilium terminal window, execute:
     cilium endpoint list
